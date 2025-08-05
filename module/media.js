@@ -17,3 +17,24 @@ function calcularMedia(valor1, valor2, valor3, valor4) {
     
     return Number(media).toFixed(1)
 }
+
+//Função que retorna o status da média escolar (APROVADO, EXAME e REPROVADO)
+function validarStatusMedia(valorMedia) {
+
+    let media = Number(valorMedia)
+    let status
+
+    if (media >= 7 && media <= 10) {
+        status = 'APROVADO'
+    } else if (media < 7 && media >= 5) {
+        status = 'EXAME'
+    } else if (media < 5 && media >= 0) {
+        status = 'REPROVADO'
+    }
+
+    if(status != undefined) {
+        return status
+    } else {
+        return false
+    }
+}
