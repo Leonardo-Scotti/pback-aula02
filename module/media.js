@@ -38,3 +38,9 @@ function validarStatusMedia(valorMedia) {
         return false
     }
 }
+
+//Permite tornar public uma função, variável, constante, objeto e etc...
+module.exports = {
+    calcularMedia,
+    validarStatusMedia
+}
