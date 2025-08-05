@@ -5,9 +5,9 @@
  * Data: 01/08/2025
  * Versão: 1.0
  ********************************************************************/
-const MESSAGE_ERROR_EMPTY     = 'ERRO: É obrigatório o preenchimento de todas as informações!'
+const MESSAGE_ERROR_EMPTY = 'ERRO: É obrigatório o preenchimento de todas as informações!'
 const MESSAGE_ERROR_OF_BOUNDS = 'ERRO: Dados inválidos. Você deve entrar com valores entre 0 e 10 nas notas!'
-const MESSAGE_ERROR_NAN       = 'ERRO: Dados inválidos. Você deve digitar apenas com um número!'
+const MESSAGE_ERROR_NAN = 'ERRO: Dados inválidos. Você deve digitar apenas com um número!'
 const MESSAGE_ERROR_IS_NUMBER = 'ERRO: Você deve digitar apenas caracteres alfabéticos no nome!'
 
 
@@ -61,11 +61,14 @@ const MESSAGE_ERROR_IS_NUMBER = 'ERRO: Você deve digitar apenas caracteres alfa
 
 
 
+//Import da biblioteca para calcular as médias escolares
+const mediaEscolar = require('./module/media.js')
+
 //Import da biblioteca do readline para manipular entrada de dados no terminal.
-var readline = require('readline');
+const readline = require('readline');
 
 //Criando um objeto de entrada e daída de dados no terminal.
-var entradaDeDados = readline.createInterface({
+const entradaDeDados = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 })
@@ -100,7 +103,7 @@ entradaDeDados.question('Digite o nome do aluno: ', function(nome) {
                         //Validação para bloquear a entrada de letras
                     } else if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3) || isNaN(nota4)) {
                         console.log(MESSAGE_ERROR_NAN)
-                    
+
                         //Validação de entrada de valores entre 0 até 10
                     } else if (Number(nota1) < 0 || Number(nota1) > 10 ||
                         Number(nota2) < 0 || Number(nota2) > 10 ||
@@ -108,20 +111,15 @@ entradaDeDados.question('Digite o nome do aluno: ', function(nome) {
                         Number(nota4) < 0 || Number(nota4) > 10) {
                         console.log(MESSAGE_ERROR_OF_BOUNDS)
                     } else {
-                        let media = (Number(nota1) + Number(nota2) + Number(nota3) + Number(nota4)) / 4
+                        //Chama a função para calcular a média
+                        let media = mediaEscolar.calcularMedia(nota1, nota2, nota3, nota4)
 
-                        let statusAluno
-                        if (media >= 7 && media <= 10) {
-                            statusAluno = 'APROVADO'
-                        } else if (media < 7 && media >= 5) {
-                            statusAluno = 'EXAME'
-                        } else if (media < 5 && media >= 0) {
-                            statusAluno = 'REPROVADO'
-                        } else {
+                        //Chama a função para retornar o status da média
+                        let statusAluno = mediaEscolar.validarStatusMedia(media)
 
+                        if (statusAluno) {
+                            console.log(`O aluno(a) ${nomeAluno} teve a média ${media} e está ${statusAluno}`)
                         }
-
-                        console.log(`O aluno(a) ${nomeAluno} teve a média ${media.toFixed(1)} e está ${statusAluno}`)
                     }
                 })
             })
