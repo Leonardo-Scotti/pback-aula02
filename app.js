@@ -5,8 +5,15 @@
  * Data: 01/08/2025
  * Versão: 1.0
  ********************************************************************/
+const MESSAGE_ERROR_EMPTY     = 'ERRO: É obrigatório o preenchimento de todas as informações!'
+const MESSAGE_ERROR_OF_BOUNDS = 'ERRO: Dados inválidos. Você deve entrar com valores entre 0 e 10 nas notas!'
+const MESSAGE_ERROR_NAN       = 'ERRO: Dados inválidos. Você deve digitar apenas com um número!'
+const MESSAGE_ERROR_IS_NUMBER = 'ERRO: Você deve digitar apenas caracteres alfabéticos no nome!'
 
-/**
+
+
+
+/******************************************************************************************
  * Formas de criar uma variável:
  * var   -> Permite criar um espaço em memória (Variável), esse método é considerado 
  *        antigo. 
@@ -50,7 +57,7 @@
  * E AND &&
  * OU OR ||
  * NÃO NOT !
- */
+ *****************************************************************************************/
 
 
 
@@ -84,15 +91,22 @@ entradaDeDados.question('Digite o nome do aluno: ', function(nome) {
                 entradaDeDados.question('Digite a nota4: ', function(valor4) {
                     let nota4 = valor4
 
+                    //Validação da entrada vazia
                     if (nomeAluno == '' || nota1 == '' || nota2 == '' || nota3 == '' || nota4 == '') {
-                        console.log('ERRO: É obrigatório o preenchimento de todas as informações!')
+                        console.log(MESSAGE_ERROR_EMPTY)
                     } else if (!isNaN(nomeAluno)) {
-                        console.log('ERRO: Dados inválidos. Você deve digitar apenas com um número!')
-                    } else if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3) || isNaN(nota4)) {
-                        console.log('ERRO: Dados inválidos. Você deve digitar apenas caracteres numéricos nas notas!')
+                        console.log(MESSAGE_ERROR_IS_NUMBER)
 
-                    } else if (Number(nota1) < 0 || Number(nota1) > 10 || Number(nota2) < 0 || Number(nota2) > 10 || Number(nota3) < 0 || Number(nota3) > 10 || Number(nota4) < 0 || Number(nota4) > 10) {
-                        console.log('ERRO: Dados inválidos. Você deve entrar com valores entre 0 e 10!')
+                        //Validação para bloquear a entrada de letras
+                    } else if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3) || isNaN(nota4)) {
+                        console.log(MESSAGE_ERROR_NAN)
+                    
+                        //Validação de entrada de valores entre 0 até 10
+                    } else if (Number(nota1) < 0 || Number(nota1) > 10 ||
+                        Number(nota2) < 0 || Number(nota2) > 10 ||
+                        Number(nota3) < 0 || Number(nota3) > 10 ||
+                        Number(nota4) < 0 || Number(nota4) > 10) {
+                        console.log(MESSAGE_ERROR_OF_BOUNDS)
                     } else {
                         let media = (Number(nota1) + Number(nota2) + Number(nota3) + Number(nota4)) / 4
 
